@@ -6,8 +6,8 @@ import os
 
 from sklearn.linear_model import LinearRegression
 ''''
-wstępna analiza danych
-wykresy korelacji ze względu na miasto
+preliminary data analysis
+correlation graphs by city
 '''
 
 migration_data = pd.read_csv("data_prep/data/migration2.csv", sep=";")

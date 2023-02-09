@@ -6,14 +6,14 @@ import seaborn as sns
 
 data = pd.read_csv("data/combined_edit.csv", sep=";")
 # drop nan values and print number of dropped rows
-print("Usunięto", data.isna().sum().sum(), "wierszy")
+print("Deleted", data.isna().sum().sum(), "rows")
 data = data.dropna()
 # convert miasto to string
 data['miasto'] = data['miasto'].astype('string')
 
 
 corr = data['wsp_mig'].corr(data['cena'])
-print("Współczynnik korelacji:", corr, end='\n\n\n\n\n')
+print("Correlation:", corr, end='\n\n\n\n\n')
 
 miasta_corr = dict.fromkeys(data['miasto'].unique(), 0)
 for city in data['miasto'].unique():
@@ -26,9 +26,9 @@ for city in data['miasto'].unique():
 plt.bar(miasta_corr.keys(), miasta_corr.values())
 plt.xticks(rotation=90)
 # wrote title with mean correlation
-plt.title('Korelacja dla miast (średnia: {:.2f})'.format(np.mean(list(miasta_corr.values()))))
-plt.xlabel('Miasto')
-plt.ylabel('Korelacja')
+plt.title('Corr for city (avg: {:.2f})'.format(np.mean(list(miasta_corr.values()))))
+plt.xlabel('City')
+plt.ylabel('Correlation')
 # annotate average correlation
 plt.axhline(np.mean(list(miasta_corr.values())), color='red')
 plt.tight_layout()
@@ -44,24 +44,24 @@ plt.show()
 corr = data.corr()
 
 sns.heatmap(corr, annot=True)
-plt.title('Macierz korelacji')
+plt.title('Correlation matrix')
 plt.show()
 
 
 corr = data['wsp_mig'].corr(data['cena'])
-print("Współczynnik korelacji:", corr)
+print("Correlation", corr)
 
 sns.regplot(x='wsp_mig', y='cena', data=data)
-plt.xlabel('Współczynnik migracji')
-plt.ylabel('Cena')
-plt.title('Zależność ceny od współczynnika migracji')
+plt.xlabel('Migration coefficient')
+plt.ylabel('price')
+plt.title('The dependence of the price on the migration rate')
 plt.show()
 
 
 # plot data for wrocław
 wroclaw_data = data[data['miasto'] == 'Wrocław']
 sns.regplot(x='wsp_mig', y='cena', data=wroclaw_data)
-plt.xlabel('Współczynnik migracji')
-plt.ylabel('Cena')
-plt.title('Zależność ceny od współczynnika migracji dla Wrocławia')
+plt.xlabel('Migration coefficient')
+plt.ylabel('Price')
+plt.title('The dependence of the price on the migration rate in Wrocław')
 plt.show()
