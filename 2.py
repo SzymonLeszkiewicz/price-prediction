@@ -1,3 +1,9 @@
+#  Copyright (c)
+#  Author: Szymon Leszkiewicz
+#  Date: 2023 - 2
+#  License: BSD 3-Clause
+#  Description: This file is part of the project: "House prices prediction in Poland based on the
+#               migration data and the real estate market data".
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,9 +16,9 @@ preliminary data analysis
 correlation graphs by city
 '''
 
-migration_data = pd.read_csv("data_prep/data/migration2.csv", sep=";")
+migration_data = pd.read_csv("arch/data_prep/data/migration2.csv", sep=";")
 migration_data.set_index('rok', inplace=True)
-price_data = pd.read_csv("data_prep/data/srednie2.csv")
+price_data = pd.read_csv("arch/data_prep/data/srednie2.csv")
 price_data.set_index('rok', inplace=True)
 
 
@@ -49,9 +55,8 @@ sns.set_style("whitegrid")
 sns.set_context("paper", font_scale=1.5)
 plt.tight_layout()
 plt.bar(corr_dict.keys(), corr_dict.values(), color=['red' if x < 0.5 else 'blue' for x in corr_dict.values()])
-if not os.path.exists('figures'):
-    os.makedirs('figures')
-plt.savefig('figures/corr.png', dpi=300)
+
+plt.savefig('data/figures/corr-for-city.png', dpi=300)
 plt.show()
 
 # drop data

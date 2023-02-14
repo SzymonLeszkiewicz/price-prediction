@@ -1,0 +1,9 @@
+Functional requirements:
+F1 program can be used through a GUI
+F2 program shows the best places to start and complete the investment 
+F3 program shows the charac. of the market in the selected city
+
+Non-functional requirements:
+NF1 program can be run on windows and linux
+NF2 data integrity is ensured
+NF3 program is open source
