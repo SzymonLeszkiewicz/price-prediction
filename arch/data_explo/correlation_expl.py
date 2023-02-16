@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-data = pd.read_csv("data/combined_edit.csv", sep=";")
+data = pd.read_csv("../../data/combined_edit.csv", sep=";")
 # drop nan values and print number of dropped rows
 print("Deleted", data.isna().sum().sum(), "rows")
 data = data.dropna()

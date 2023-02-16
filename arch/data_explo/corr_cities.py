@@ -16,9 +16,9 @@ preliminary data analysis
 correlation graphs by city
 '''
 
-migration_data = pd.read_csv("arch/data_prep/data/migration2.csv", sep=";")
+migration_data = pd.read_csv("../data_prep/data/migration2.csv", sep=";")
 migration_data.set_index('rok', inplace=True)
-price_data = pd.read_csv("arch/data_prep/data/srednie2.csv")
+price_data = pd.read_csv("../data_prep/data/srednie2.csv")
 price_data.set_index('rok', inplace=True)
 
 
