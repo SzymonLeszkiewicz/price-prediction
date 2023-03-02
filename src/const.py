@@ -12,8 +12,9 @@ i: best city to invest
 m: best city to monetize investment
 e: evaluatin of the market in a given city'''
 epilog_text = '''Copyrigth (c) 2021 Szymon Leszkiewicz'''
-df = pd.read_csv('..\data\cleaned_data.csv')['miasto'].unique()
+df = pd.read_csv('../data/cleaned_data.csv')['miasto'].unique()
 cities = ', '.join(df)
 city_help_description = f'''City name. Possible values: '''+cities
 categorical_features = ['miasto']
 y_name = 'cena'
+
