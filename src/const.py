@@ -15,3 +15,4 @@ epilog_text = '''Copyrigth (c) 2021 Szymon Leszkiewicz'''
 df = pd.read_csv('..\data\cleaned_data.csv')['miasto'].unique()
 cities = ', '.join(df)
 city_help_description = f'''City name. Possible values: '''+cities
+categorical_features = ['miasto']
