@@ -6,20 +6,23 @@
 #               migration data and the real estate market data".
 import argparse
 import textwrap
+from run_pred import Predict
+from const import Const
 
-from const import help_description, mode_help_description, epilog_text, city_help_description, cities
+c = Const()
 
 
 class Main:
     def __init__(self):
         self.mode = None
-
+        self.city = None
+        self.prediction = Predict().prediction
     def run(self):
-        parser = argparse.ArgumentParser(description=help_description, epilog=epilog_text, prog='PRICE PREDICTION',
+        parser = argparse.ArgumentParser(description=c.help_description, epilog=c.epilog_text, prog='PRICE PREDICTION',
                                          formatter_class=argparse.RawTextHelpFormatter)
-        parser.add_argument('mode', metavar='mode', type=str, help=mode_help_description, choices=['i', 'm', 'e'])
-        parser.add_argument('-city', metavar='city', type=str, help=textwrap.fill(city_help_description),
-                            choices=cities)
+        parser.add_argument('mode', metavar='mode', type=str, help=c.mode_help_description, choices=['i', 'm', 'e'])
+        parser.add_argument('-city', metavar='city', type=str, help=textwrap.fill(c.city_help_description),
+                            choices=c.cities)
 
         args = parser.parse_args()
         self.mode = args.mode
@@ -32,7 +35,8 @@ class Main:
         pass
 
     def run_best_city_to_monetize_investment(self):
-        pass
+        print(max(self.prediction))
+        
 
     def run_evaluate_market(self):
         pass

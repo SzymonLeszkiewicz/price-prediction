@@ -8,7 +8,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
 from Model import Model
-from const import y_name
+from const import Const
+from utils import get_data, save_model
+
+c = Const()
 
 
 class LrModel(Model):
@@ -33,8 +36,8 @@ class LrModel(Model):
 
     def prepare_date(self):
         X = self.dummy_features(self.data)
-        y = X[y_name]
-        X = X.drop(y_name, axis=1)
+        y = X[c.y_name]
+        X = X.drop(c.y_name, axis=1)
         return X, y
 
     def train_model(self):
@@ -45,3 +48,15 @@ class LrModel(Model):
         self.score = self.cross_validation(X_train, y_train, self.model)
         return self.model
 
+    def model_predict(self, year):
+        new_data = self.data.loc[self.data['rok'] == year]
+        new_data = new_data.drop(c.y_name, axis=1)
+        return self.model.predict(new_data)
+
+
+if __name__ == '__main__':
+    from utils import get_data
+    data = get_data()
+    m = LrModel(data)
+    m.train_model()
+    print(m.model_predict(2021))
