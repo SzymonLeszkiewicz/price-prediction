@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 from Model import Model
 from const import Const
 from utils import get_data, save_model
+import pandas as pd
 
 c = Const()
 
@@ -19,6 +20,7 @@ class LrModel(Model):
         super().__init__(data)
         self.model = LinearRegression()
         self.score = None
+        self.X, self.y = None, None  # X - features, y - target
 
     def make_new_features(self):
         def value_year_before(x, df, column):
@@ -42,20 +44,26 @@ class LrModel(Model):
 
     def train_model(self):
         self.make_new_features()
-        X, y = self.prepare_date()
-        X_train, X_test, y_train, y_test = train_test_split(X, y)
+        self.X, self.y = self.prepare_date()
+        X_train, X_test, y_train, y_test = train_test_split(self.X, self.y)
         self.model.fit(X_train, y_train)
         self.score = self.cross_validation(X_train, y_train, self.model)
         return self.model
 
+    def get_cities_from_dummies(self, d):
+        col = [c for c in d.columns if c.startswith('miasto')]
+        return d[col].idxmax(axis=1).str.replace('miasto_', '')
     def model_predict(self, year):
-        new_data = self.data.loc[self.data['rok'] == year]
-        new_data = new_data.drop(c.y_name, axis=1)
-        return self.model.predict(new_data)
+        new_data = self.X.loc[self.X['rok'] == year]
+        cities = self.get_cities_from_dummies(new_data)
+        pred = self.model.predict(new_data)
+        new_data = pd.DataFrame({'miasto': cities, 'rok': year, 'cena': pred})
+        return new_data
 
 
 if __name__ == '__main__':
     from utils import get_data
+
     data = get_data()
     m = LrModel(data)
     m.train_model()

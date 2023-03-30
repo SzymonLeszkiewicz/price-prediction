@@ -6,6 +6,7 @@
 #               migration data and the real estate market data".
 import os
 import pickle as pkl
+import datetime
 
 import pandas as pd
 
@@ -18,18 +19,18 @@ def get_data():
 def load_model():
     with open(os.path.join('..', 'results', 'LR model.pkl'), 'rb') as f:
         try:
-            model = pkl.load(f)
-            print('model', model)
+            data = pkl.load(f)
         except Exception as e:
             print("loading model error", e)
-    return model['model']
+    return data['model']
 
 
 def save_model(model, model_name):
     with open(os.path.join('..', 'results', f'{model_name} model.pkl'), 'wb') as f:
-        # assert isinstance(model, Model)
         data = {'model': model, 'model_name': model_name}
-        print(data)
         pkl.dump(data, f)
 
 
+def get_last_year():
+    year = datetime.date.today().year
+    return year

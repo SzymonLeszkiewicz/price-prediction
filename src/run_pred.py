@@ -21,9 +21,12 @@ class Predict:
         self.model = None
         self.data = None
         if os.path.exists(os.path.join('..', c.files_dir, 'LR model.pkl')):
+            print('Loading model...')
             self.model = load_model()
         else:
+            print('Training model...')
             self.model_train()
+            print('Saving model...')
             save_model(self.model, 'LR')
         self.prediction = None
         self.predict()
@@ -35,7 +38,6 @@ class Predict:
 
     def predict(self, year=2021):
         self.prediction = self.model.model_predict(year)
-        print(self.prediction)
         return self.prediction
 
 

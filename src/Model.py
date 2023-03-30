@@ -10,6 +10,8 @@ from const import Const
 from sklearn.model_selection import train_test_split, cross_validate, KFold
 
 c = Const()
+
+
 class Model:
     def __init__(self, data):
         self.data = data
@@ -24,7 +26,7 @@ class Model:
         for i in c.categorical_features:
             dummy = pd.get_dummies(X[i], prefix=i, prefix_sep='_')
             X.drop(i, axis=1, inplace=True)
-            X.join(dummy)
+            X = X.join(dummy)
         return X
 
     @staticmethod
@@ -40,4 +42,3 @@ class Model:
         kfold = KFold(n_splits=3, shuffle=True, random_state=123)
         cv_results = cross_validate(model, X, y, cv=kfold, scoring=scoring)
         return cv_results
-
